@@ -1,0 +1,16 @@
+def printZigZag(n):
+# write your code here
+    #base case
+    if n == 0:
+        return 
+    #recursive case
+    print(n, end=' ')
+    printZigZag(n-1)
+    print(n, end=' ')
+    printZigZag(n-1)
+    print(n, end=' ')
+
+
+
+num = int(input())
+printZigZag(num)
