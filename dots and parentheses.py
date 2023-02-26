@@ -1,48 +1,47 @@
 import sys
 
-final_result = []
+def prime_factors(num):
+    factors = []
+    max_factor = 1
+    i = 2
+    while i * i <= num:
+        if num % i:
+            i += 1
+        else:
+            factors.append(i)
+            num //= i
+            max_factor = i
+    if num > 1:
+        factors.append(num)
+        max_factor = max(max_factor,num)
+    return factors, max_factor
 
-def encode(n):
-    if n == 0:
-        return "."
-    p = "("
-    for i in range(2, n + 1):
+def funk(max_num):
+    if max_num == 0:
+        return '.'
+    if max_num == 1:
+        return '()'
+    factors, max_factor = prime_factors(max_num)
+    prime_list = []
+    prime_flags = [True] * (max_factor+1)
+    for i in range(2, int(max_factor ** 0.5) + 1):
+        if prime_flags[i]:
+            prime_list.append(i)
+            for j in range(i*i, max_factor+1, i):
+                prime_flags[j] = False
+    ekString =''
+    for i in prime_list:
+        if(factors.count(i)>0):
+            ekString += funk(factors.count(i))
+        else:
+            ekString += '.'
 
-        if is_prime[i]:
-            value = 0
-            while n % i == 0:
-                value += 1
-                n //= i
-            if value == 0:
-                p += "."
-            else:
-                p += f"{encode(value)}"
+    return "(" + ekString + ")"
 
-        if n == 1:
-            break
-    return p + ')'
+numbers = []
+for line in sys.stdin:
+    x = int(line)
+    numbers.append(x)
 
-n = 0
-
-for i in sys.stdin:
-    k = i.split()
-    if (k[0]).isdecimal() and int(i) >= 0:
-        final_result.append(int(i))
-        n = max(n, int(i))
-    else:
-        print()
-        exit()
-
-is_prime = [True] * (n + 1)
-
-for i in range(2, n + 1):
-    if is_prime[i]:
-        for j in range(i + i, n + 1, i):
-            is_prime[j] = False
-
-for i in range(len(final_result)):
-    final_result[i] = encode(final_result[i])
-
-for j in range(len(final_result)):
-    sys.stdout.write(final_result[j])
-    sys.stdout.write('\n')
+for i in numbers:
+    print(funk(i))
