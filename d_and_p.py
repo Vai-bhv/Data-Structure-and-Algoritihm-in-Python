@@ -22,33 +22,14 @@ def funk(max_num):
     if max_num == 1:
         return '()'
     factors, max_factor = prime_factors(max_num)
-    prime_set = set(i for i in range(2, max_factor+1))
     prime_list = []
     prime_flags = [True] * (max_factor+1)
     prime_flags[0] = prime_flags[1] = False
-    # for i in range(len(prime_flags)):
-    #     print(i,prime_flags[i])
-    # print((int(max_factor ** 0.5)+1), "bdsfb")
-    # print(max_num, max_factor,int(max_factor ** 0.5) + 1 , "line 32"); 
-    # for i in range(2, int(max_factor ** 0.5) + 1):
-        # print(max_num, max_factor, i, "line 34")
-    # for i in range(2, int(max_factor ** 0.5) + 1):
     for i in range(2, max_factor  + 1):
         if prime_flags[i]:
-            # print(max_num, max_factor, i, "line 35")
             prime_list.append(i)
             for j in range(i*i, max_factor+1, i):
-                # print(i,j)
                 prime_flags[j] = False
-    # print(prime_list)
-    # print(prime_set)
-    # print(int(max_factor ** 0.5) +1, max_factor + 1 ,"line 44" )
-    # for i in range(2, int(max_factor ** 0.5) + 1):
-    #     if i in prime_set:
-    #         prime_set -= set(range(i*i, max_factor+1, i))
-    # print(prime_set)
-    # prime_list = sorted(prime_set)
-    # print(prime_list)
     ekString = ''
     for i in prime_list:
         if(factors.count(i)>0):
